@@ -130,4 +130,5 @@ st.write('''Altair es buena, especialmente para crear gráficos interactivos y t
 st.write('''Sin embargo, una de las desventajas es en cuanto el orden. Incluso si usas un dataframe ordenado, altair usa su propio orden, por lo que es necesario volverlos a ordenar desde altair. 
          Adicionalmente, los colores también se tienen que sincronizar para que sean acordes al orden, lo que implica indicar muchas veces el orden a seguir cuando otras librerías lo hacen con una sola sentencia.''')
 st.write('''Otra desventaja es la sintaxis, la cual resulta algo extraña tomando en cuenta que hemos trabajado con librerías como pandas, matplotlib, seaborn las cuales siguen una sintaxis similar entre sí.''')
-st.write('''Además, es necesario tener cuidad al momento de unir gráficas con | y &, pues estas pueden romperse si se trabaja con interacciones.''')
+st.write('''Además, es necesario tener cuidad al momento de unir gráficas con | y &, pues estas pueden romperse si se trabaja con interacciones. Altair no permite en un solo objeto gráficos que tienen slecciones diferentes sin hacer operaciones adicionales. 
+         Es posible hacerlo pero es complicado''')
