@@ -17,8 +17,8 @@ complementario_naranja = '#229bf3'
 naranja_triada = ['#f37a22', '#22f37a', '#7a22f3']
 morado_triada = ['#462e92', '#92462e', '#2e9246']
 
-st.write('Actividad - Altair y streamlit')
-st.write('Ian Julián Estrada Castro')
+st.title('Actividad - Altair y streamlit')
+st.subheader('Ian Julián Estrada Castro')
 
 df = pd.read_csv('../2016-1.csv')
 df.info()
@@ -93,3 +93,32 @@ st.altair_chart(graf7 | graf8)
 st.write('''El gráfico de dispersión muestra la expectativa de vida con respecto al PIB. 
          En este caso, sí parece haber una correlación positiva, donde entre más alto sea el PIB, mayor esperanza de vida. 
          Por ejemplo, los paises correspondientes a Europa occidental se concentran en un área del gráfico.''')
+
+click = alt.selection_point(encodings=['color'])
+graf9 = alt.Chart(df).mark_bar().encode(
+    x='Region:N',
+    y='Happiness Score:Q',
+    color=alt.condition(click, alt.Color('Region:N', scale=alt.Scale(range=gama_triada_naranja)), alt.value('#229bf3'))
+).properties(
+    title='Felicidad por región',
+    width=500,
+    height=150
+).add_params(click)
+
+graf10 = alt.Chart(df).mark_bar().encode(
+    x='Happiness Score:Q',
+    y='Country:N',
+    color='Region',
+    tooltip=['Country', 'Happiness Score']
+).properties(
+    title='Felicidad por país',
+    width=500,
+    height=300
+).transform_filter(click)
+st.altair_chart(graf9 & graf10)
+st.write('''El gráfico de barras muestra la puntuación de felicidad por región. 
+         La gama de colores seleccionada fue la gama triada a partir del color naranja de la empresa FedEx, esto debido a que este gráfico muestra categorías. 
+         Las regiones con mayor puntuación son Europa central y del este, junto con África subsahariana. 
+         Al seleccionar la región, podemos ver la cantidad de países y su respectiva puntuación de felicidad.''')
+
+st.subheader('Conclusiones')
