@@ -32,17 +32,13 @@ graf1 = alt.Chart(df).mark_point().encode(
     tooltip=['Country']
 ).properties(
     title='Felicidad vs PIB',
-    width=800,
-    height=400
-).interactive()
-st.altair_chart(graf1)
-st.write('''El gráfico de dispersión la puntuación de felicidad contra el Producto Interno Bruto (PIB) de ada país. 
-         La gama de colores seleccionada fue la gama triada a partir del color naranja de la empresa FedEx, utilizada en este caso para colorear los países por región.
-         Aquí podemos ver que la mayoría de países de África subsahariana están por debajo de los 5.5 puntos de felicidad. 
-         Esto destaca la importancia de las visualizaciones, puesto que la anterior gráfica de barras era una suma total de la región.''')
+    width=400,
+    height=200
+)
+graf1 = graf1.interactive()
 
-df = df.sort_values(by='Happiness Rank')
-paises_mas_felices = df.head(10)
+df_ordenado = df.sort_values(by='Happiness Rank')
+paises_mas_felices = df_ordenado.head(10)
 orden = list(paises_mas_felices.sort_values('Happiness Score')['Country'])
 
 graf4 = alt.Chart(paises_mas_felices).mark_bar().encode(
@@ -57,13 +53,9 @@ graf4 = alt.Chart(paises_mas_felices).mark_bar().encode(
     tooltip=['Happiness Score'],
 ).properties(
     title='Países más felices',
-    width=800,
-    height=400
+    width=400,
+    height=200
 )
-st.altair_chart(graf4)
-st.write('''El siguiente gráfico de barras muestra la puntuación de felicidad de los 10 países más felices.
-            En esta ocasión están ordenados de forma ascendente siguiendo una buena práctica para los gráficos de barras. 
-            La gama de color es la misma, siguiendo el mismo patrón ascendente.''')
 
 intervalo = alt.selection_interval()
 graf7 = alt.Chart(df).mark_point().encode(
@@ -74,9 +66,10 @@ graf7 = alt.Chart(df).mark_point().encode(
     tooltip=['Country']
 ).properties(
     title='Espectativa de vida vs PIB',
-    width=300,
+    width=400,
     height=300
-).add_params(intervalo)
+)
+graf7 = graf7.add_params(intervalo)
 
 graf8 = alt.Chart(df).mark_point().encode(
     x='Health (Life Expectancy):Q',
@@ -85,14 +78,11 @@ graf8 = alt.Chart(df).mark_point().encode(
                     scale=alt.Scale(range=gama_triada_naranja)),
     tooltip=['Country']
 ).properties(
-    title='Espectativa de vida vs PIB',
-    width=300,
+    title='Espectativa de vida vs PIB (Área seleccionada)',
+    width=400,
     height=300
-).transform_filter(intervalo)
-st.altair_chart(graf7 | graf8)
-st.write('''El gráfico de dispersión muestra la expectativa de vida con respecto al PIB. 
-         En este caso, sí parece haber una correlación positiva, donde entre más alto sea el PIB, mayor esperanza de vida. 
-         Por ejemplo, los paises correspondientes a Europa occidental se concentran en un área del gráfico.''')
+)
+graf8 = graf8.transform_filter(intervalo)
 
 click = alt.selection_point(encodings=['color'])
 graf9 = alt.Chart(df).mark_bar().encode(
@@ -101,9 +91,10 @@ graf9 = alt.Chart(df).mark_bar().encode(
     color=alt.condition(click, alt.Color('Region:N', scale=alt.Scale(range=gama_triada_naranja)), alt.value('#229bf3'))
 ).properties(
     title='Felicidad por región',
-    width=500,
+    width=800,
     height=150
-).add_params(click)
+)
+graf9 = graf9.add_params(click)
 
 graf10 = alt.Chart(df).mark_bar().encode(
     x='Happiness Score:Q',
@@ -112,14 +103,20 @@ graf10 = alt.Chart(df).mark_bar().encode(
     tooltip=['Country', 'Happiness Score']
 ).properties(
     title='Felicidad por país',
-    width=500,
+    width=800,
     height=300
-).transform_filter(click)
+)
+graf10 = graf10.transform_filter(click)
+
+parte1 = (graf1 | graf4).resolve_scale(
+    x='independent',
+    y='independent',
+    color='independent'
+)
+parte2 = graf7 | graf8
+st.altair_chart(parte1)
+st.altair_chart(parte2)
 st.altair_chart(graf9 & graf10)
-st.write('''El gráfico de barras muestra la puntuación de felicidad por región. 
-         La gama de colores seleccionada fue la gama triada a partir del color naranja de la empresa FedEx, esto debido a que este gráfico muestra categorías. 
-         Las regiones con mayor puntuación son Europa central y del este, junto con África subsahariana. 
-         Al seleccionar la región, podemos ver la cantidad de países y su respectiva puntuación de felicidad.''')
 
 st.subheader('Conclusiones')
 st.write('¿Cuál es la importancia de una buena elección de color para la representación de datos?')
@@ -133,3 +130,4 @@ st.write('''Altair es buena, especialmente para crear gráficos interactivos y t
 st.write('''Sin embargo, una de las desventajas es en cuanto el orden. Incluso si usas un dataframe ordenado, altair usa su propio orden, por lo que es necesario volverlos a ordenar desde altair. 
          Adicionalmente, los colores también se tienen que sincronizar para que sean acordes al orden, lo que implica indicar muchas veces el orden a seguir cuando otras librerías lo hacen con una sola sentencia.''')
 st.write('''Otra desventaja es la sintaxis, la cual resulta algo extraña tomando en cuenta que hemos trabajado con librerías como pandas, matplotlib, seaborn las cuales siguen una sintaxis similar entre sí.''')
+st.write('''Además, es necesario tener cuidad al momento de unir gráficas con | y &, pues estas pueden romperse si se trabaja con interacciones.''')
