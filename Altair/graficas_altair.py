@@ -4,6 +4,7 @@ import streamlit as st
 import altair as alt
 import pandas as pd
 import seaborn as sns
+import plotly.express as px
 
 df = sns.load_dataset('penguins')
 
@@ -21,6 +22,11 @@ bar = alt.Chart(df).mark_bar().encode(
 st.altair_chart(bar)
 #streamlit run archivi.py
 #python3 -m streamlit run archivo.py
+
+st.subheader("Gráfica con Plotly Express")
+plot_chart = px.strip(df, x='species', y='bill_depth_mm',
+                      color='species')
+st.plotly_chart(plot_chart)
 
 st.write('Conclusiones')
 st.balloons()
