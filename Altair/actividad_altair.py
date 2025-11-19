@@ -123,4 +123,13 @@ st.write('''El gráfico de barras muestra la puntuación de felicidad por regió
 
 st.subheader('Conclusiones')
 st.write('¿Cuál es la importancia de una buena elección de color para la representación de datos?')
+st.write('')
+st.write('''La importancia radica en que el color influye directamente en una primera impresión. Asociamos los colores a cosas, por ejemplo: Verde para algo bueno y rojo para algo malo.''')
+st.write('''En este caso, usamos colores que respetaban cierta identidad, la empresa FedEx, tomando los colores principales del logo y usando diferentes esquemas.''')
+st.write('''Si la paleta de colores fuera diferente o incoherente con la identidad de la empresa o aplicación, sería extraño.''')
+st.write('')
 st.write('¿Altair es una buena librería para realizar gráficas? Comenta ventajas y desventajas')
+st.write('''Altair es buena, especialmente para crear gráficos interactivos y transformaciones como el caso de gráficas donde se puede seleccionar una columna y que se vea reflejado en la gráfica secundaria.''')
+st.write('''Sin embargo, una de las desventajas es en cuanto el orden. Incluso si usas un dataframe ordenado, altair usa su propio orden, por lo que es necesario volverlos a ordenar desde altair. 
+         Adicionalmente, los colores también se tienen que sincronizar para que sean acordes al orden, lo que implica indicar muchas veces el orden a seguir cuando otras librerías lo hacen con una sola sentencia.''')
+st.write('''Otra desventaja es la sintaxis, la cual resulta algo extraña tomando en cuenta que hemos trabajado con librerías como pandas, matplotlib, seaborn las cuales siguen una sintaxis similar entre sí.''')
