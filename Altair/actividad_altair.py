@@ -32,7 +32,7 @@ graf1 = alt.Chart(df).mark_point().encode(
     tooltip=['Country']
 ).properties(
     title='Felicidad vs PIB',
-    width=400,
+    width=800,
     height=400
 ).interactive()
 st.altair_chart(graf1)
@@ -57,7 +57,7 @@ graf4 = alt.Chart(paises_mas_felices).mark_bar().encode(
     tooltip=['Happiness Score'],
 ).properties(
     title='Países más felices',
-    width=400,
+    width=800,
     height=400
 )
 st.altair_chart(graf4)
@@ -122,3 +122,5 @@ st.write('''El gráfico de barras muestra la puntuación de felicidad por regió
          Al seleccionar la región, podemos ver la cantidad de países y su respectiva puntuación de felicidad.''')
 
 st.subheader('Conclusiones')
+st.write('¿Cuál es la importancia de una buena elección de color para la representación de datos?')
+st.write('¿Altair es una buena librería para realizar gráficas? Comenta ventajas y desventajas')
