@@ -56,3 +56,32 @@ new_prediction = rfc.predict(
 st.subheader('Predicción de tu especie de pingüino')
 prediction_species = unique_penguin_mapping[new_prediction[0]]
 st.write(f'El modelo dice que tu especie de pingüino es: **{prediction_species}**')
+
+st.image('feature_importance.png')
+
+st.write(
+    '''Below are the histograms for each
+continuous variable separated by penguin species.
+The vertical line represents the inputted value.'''
+)
+sns.set_style('darkgrid')
+col1, col2, col3 = st.columns(3)
+penguin_df = sns.load_dataset('penguins')
+with col1:
+    fig, ax = plt.subplots()
+    ax = sns.displot(x=penguin_df["bill_length_mm"], hue=penguin_df["species"])
+    plt.axvline(bill_length_mm, color='darkred', linestyle='--', linewidth=2, alpha=0.8)
+    plt.title("Bill Length by Species")
+    st.pyplot(ax)
+with col2:
+    fig, ax = plt.subplots()
+    ax = sns.displot(x=penguin_df["bill_depth_mm"], hue=penguin_df["species"])
+    plt.axvline(bill_depth_mm, color='darkred', linestyle='--', linewidth=2, alpha=0.8)
+    plt.title("Bill Depth by Species")
+    st.pyplot(ax)
+with col3:
+    fig, ax = plt.subplots()
+    ax = sns.displot(x=penguin_df["flipper_length_mm"], hue=penguin_df["species"])
+    plt.axvline(flipper_length_mm, color='darkred', linestyle='--', linewidth=2, alpha=0.8)
+    plt.title("Flipper Length by Species")
+    st.pyplot(ax)
