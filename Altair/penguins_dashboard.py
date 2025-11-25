@@ -43,3 +43,12 @@ if sex == 'Female':
     sex_female = 1
 if sex == 'Male':
     sex_male = 1
+
+new_prediction = rfc.predict(
+    [[
+        bill_length_mm, bill_depth_mm, 
+        flipper_length_mm, body_mass_g,
+        island_biscoe, island_dream, island_torgersen,
+        sex_female, sex_male,
+        ]]
+)
