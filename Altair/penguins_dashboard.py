@@ -19,3 +19,12 @@ with open('random_forest_classifier.pickle', 'rb') as rf_pickle:
 with open('output_penguins.pickle', 'rb') as map_pickle:
     unique_penguin_mapping = pickle.load(map_pickle)
     map_pickle.close()
+
+with st.form('user_input'):
+    island = st.selectbox('Penguin Island', options=['Torgersen', 'Biscoe', 'Dream'])
+    sex = st.selectbox('Sex', options=['Male', 'Female'])
+    bill_length_mm = st.number_input('Bill lenght (mm)', min_value=0)
+    bill_depth_mm = st.number_input('Bill depth (mm)', min_value=0)
+    flipper_lenght_mm = st.number_input('Flipper length (mm)', min_value=0)
+    body_mass_g = st.number_input('Body mass (g)', min_value=0)
+    st.form_submit_button()
