@@ -52,3 +52,7 @@ new_prediction = rfc.predict(
         sex_female, sex_male,
         ]]
 )
+
+st.subheader('Predicción de tu especie de pingüino')
+prediction_species = unique_penguin_mapping[new_prediction[0]]
+st.write(f'El modelo dice que tu especie de pingüino es: **{prediction_species}**')
