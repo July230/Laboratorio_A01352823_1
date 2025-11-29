@@ -17,7 +17,7 @@ if page == "Inicio":
     st.markdown("Esta aplicación muestra un ejemplo de navegación multipágina con funcionalidades interactivas.")
     
     # Imagen embebida
-    st.image("https://www.wikimedia.org/static/images/wmf-logo-2x.png", use_container_width=True)
+    st.image("https://www.wikimedia.org/static/images/wmf-logo-2x.png")
 
     st.markdown("---")
     st.subheader("¿Qué puedes hacer aquí?")
