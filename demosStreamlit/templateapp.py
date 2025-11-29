@@ -14,7 +14,7 @@ def main():
 
 	if choice == "Home":
 		st.subheader("Home: APP DE VISUALIZACION")
-		st.image('img\sunrise.jpg', caption=None)
+		st.image('img/¿Qué factores influyen más en el éxito de un cortejo?.png', caption=None)
 
 		# Tabs
 		tab1,tab2 = st.tabs(["Tab 1","Tab 2"])
