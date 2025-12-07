@@ -2,8 +2,65 @@ from dash import Dash, dcc, html, Input, Output
 import dash_bootstrap_components as dbc
 import plotly.express as px
 import plotly.graph_objects as go
+import pandas as pd
 import os
 from config.color_palletes import get_palette
+
+# ==================== Utility Functions ====================
+def get_data_path(filename):
+    '''
+    Retorna la ruta absoluta hacia un archivo dentro de /data
+
+    Parameters
+    ----------
+    filename : str
+        Nombre del archivo dentro de la carpeta /data.
+    
+    Returns
+    -------
+    str
+        Ruta absoluta hacia el archivo solicitado.
+    '''
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    data_dir = os.path.join(base_dir, 'data')
+    return os.path.join(data_dir, filename)
+
+def empty_fig(message):
+    '''
+    Genera una figura vacía con un mensaje centralizado.
+
+    Parameters
+    ----------
+    message : str
+        Mensaje a mostrar en la figura vacía.
+
+    Returns
+    -------
+    plotly.graph_objects.Figure
+        Figura vacía con el mensaje proporcionado.
+    '''
+    fig = go.Figure()
+    fig.add_annotation(
+        text=message,
+        xref='paper', yref='paper',
+        showarrow=False,
+        font=dict(size=20),
+        x=0.5, y=0.5,
+        align='center'
+    )
+    fig.update_layout(
+        xaxis=dict(visible=False),
+        yaxis=dict(visible=False),
+        plot_bgcolor='white'
+    )
+    return fig
+
+# ==================== Load Data ====================
+df_path = get_data_path('crocodile_dataset.csv')
+crocs = pd.read_csv(df_path)
+crocs = crocs.rename(columns={'Observed Length (m)':'Length_m'})
+crocs = crocs.rename(columns={'Observed Weight (kg)':'Weight_kg'})
+crocs2 = crocs.query('Genus == "Crocodylus"')
 
 app = Dash(__name__, 
            external_stylesheets=[
@@ -31,6 +88,9 @@ CONTENT_STYLE = {
     "margin-right": "2rem",
     "padding": "2rem 1rem",
 }
+
+# ==================== Prepare Figures ====================
+fig1 = px.scatter(crocs2, x='Length_m', y='Weight_kg', title='Dimensiones de cocodrilos: largo vs Peso')
 
 # ==================== Layout Components ====================
 
@@ -108,7 +168,7 @@ dashboard_content = dbc.Container([
         dbc.Col([
             dbc.Card([
                 dbc.CardBody([
-                    dcc.Graph(id='plot-1', className='dashboard-graph')
+                    dcc.Graph(id='plot-1', className='dashboard-graph', figure=fig1)
                 ])
             ], className='shadow-sm mb-3', style={'minHeight': '300px'})
         ], width='auto'),
@@ -162,54 +222,6 @@ app.layout = dbc.Container([
     content # Contenedor para el contenido de la página
 ], fluid=True)
 
-# ==================== Utility Functions ====================
-def get_data_path(filename):
-    '''
-    Retorna la ruta absoluta hacia un archivo dentro de /data
-
-    Parameters
-    ----------
-    filename : str
-        Nombre del archivo dentro de la carpeta /data.
-    
-    Returns
-    -------
-    str
-        Ruta absoluta hacia el archivo solicitado.
-    '''
-    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-    data_dir = os.path.join(base_dir, '..', 'data')
-    return os.path.join(data_dir, filename)
-
-def empty_fig(message):
-    '''
-    Genera una figura vacía con un mensaje centralizado.
-
-    Parameters
-    ----------
-    message : str
-        Mensaje a mostrar en la figura vacía.
-
-    Returns
-    -------
-    plotly.graph_objects.Figure
-        Figura vacía con el mensaje proporcionado.
-    '''
-    fig = go.Figure()
-    fig.add_annotation(
-        text=message,
-        xref='paper', yref='paper',
-        showarrow=False,
-        font=dict(size=20),
-        x=0.5, y=0.5,
-        align='center'
-    )
-    fig.update_layout(
-        xaxis=dict(visible=False),
-        yaxis=dict(visible=False),
-        plot_bgcolor='white'
-    )
-    return fig
 
 # ==================== Callback functions ====================
 @app.callback(
