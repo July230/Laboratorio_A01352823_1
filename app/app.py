@@ -1,6 +1,7 @@
 from dash import Dash, dcc, html, Input, Output
 import dash_bootstrap_components as dbc
 import plotly.express as px
+import os
 
 app = Dash(__name__, 
            external_stylesheets=[
@@ -29,6 +30,9 @@ CONTENT_STYLE = {
     "padding": "2rem 1rem",
 }
 
+# ==================== Layout Components ====================
+
+# ======================== Sidebar ==========================
 sidebar = html.Div(
     [
         html.H6('Sidebar', className='display-4', style={'font-family': 'MuseoModerno'}),
@@ -77,6 +81,8 @@ tooltip = html.Div(
     ]
 )
 
+# ======================== Pages ==========================
+# Dashboard Page
 dashboard_content = dbc.Container([
     dbc.Row([
         dbc.Col([
@@ -136,6 +142,7 @@ dashboard_content = dbc.Container([
     ])
 ])
 
+# Other Page
 other_page = dbc.Container([
     dbc.Row([
         html.Div([
@@ -153,6 +160,8 @@ app.layout = dbc.Container([
     content # Contenedor para el contenido de la página
 ], fluid=True)
 
+
+# ==================== Callback functions ====================
 @app.callback(
     Output('page-content', 'children'),
     Input('url', 'pathname')
@@ -177,6 +186,25 @@ def display_page(pathname):
         return other_page
     return html.H1('404: Página no encontrada', style={'color': 'red'})
     
+# ==================== Utility Functions ====================
+def get_data_path(filename):
+    '''
+    Retorna la ruta absoluta hacia un archivo dentro de /data
 
+    Parameters
+    ----------
+    filename : str
+        Nombre del archivo dentro de la carpeta /data.
+    
+    Returns
+    -------
+    str
+        Ruta absoluta hacia el archivo solicitado.
+    '''
+    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    data_dir = os.path.join(base_dir, '..', 'data')
+    return os.path.join(data_dir, filename)
+
+# ==================== Run the app ====================
 if __name__ == '__main__':
     app.run(debug=True)
