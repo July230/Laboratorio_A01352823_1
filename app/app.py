@@ -160,6 +160,24 @@ app.layout = dbc.Container([
     content # Contenedor para el contenido de la página
 ], fluid=True)
 
+# ==================== Utility Functions ====================
+def get_data_path(filename):
+    '''
+    Retorna la ruta absoluta hacia un archivo dentro de /data
+
+    Parameters
+    ----------
+    filename : str
+        Nombre del archivo dentro de la carpeta /data.
+    
+    Returns
+    -------
+    str
+        Ruta absoluta hacia el archivo solicitado.
+    '''
+    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    data_dir = os.path.join(base_dir, '..', 'data')
+    return os.path.join(data_dir, filename)
 
 # ==================== Callback functions ====================
 @app.callback(
@@ -185,25 +203,7 @@ def display_page(pathname):
     if pathname == '/otra-pagina':
         return other_page
     return html.H1('404: Página no encontrada', style={'color': 'red'})
-    
-# ==================== Utility Functions ====================
-def get_data_path(filename):
-    '''
-    Retorna la ruta absoluta hacia un archivo dentro de /data
 
-    Parameters
-    ----------
-    filename : str
-        Nombre del archivo dentro de la carpeta /data.
-    
-    Returns
-    -------
-    str
-        Ruta absoluta hacia el archivo solicitado.
-    '''
-    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-    data_dir = os.path.join(base_dir, '..', 'data')
-    return os.path.join(data_dir, filename)
 
 # ==================== Run the app ====================
 if __name__ == '__main__':
