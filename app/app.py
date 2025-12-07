@@ -2,6 +2,7 @@ from dash import Dash, dcc, html, Input, Output
 import dash_bootstrap_components as dbc
 import plotly.express as px
 import os
+from config.color_palletes import get_palette
 
 app = Dash(__name__, 
            external_stylesheets=[
