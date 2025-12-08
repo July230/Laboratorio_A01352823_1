@@ -244,6 +244,7 @@ dashboard_content = dbc.Container([
             style={'font-family': 'MuseoModerno'}),
         html.Hr(),
         html.Img(src='/assets/img/crocodiles.png', alt='Cocodrilos', style={'width': '300px', 'display': 'block', 'margin-left': 'auto', 'margin-right': 'auto'}),
+        html.P('Fuente: https://www.kaggle.com/datasets/zadafiyabhrami/global-crocodile-species-dataset', style={'font-family': 'MuseoModerno', 'font-size': '10px', 'text-align': 'center'}),
         html.P(
             'Equipo Ctrl+4', 
             style={'font-family': 'MuseoModerno'}),
