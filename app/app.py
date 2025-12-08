@@ -55,6 +55,11 @@ def empty_fig(message):
     )
     return fig
 
+MONOCROMATICO = get_palette('MONOCROMATICO')
+ANALOGO = get_palette('ANALOGO')
+TRIADICO = get_palette('TRIADICO')
+COMPLEMENTARIOS = get_palette('COMPLEMENTARIOS')
+
 # ==================== Load Data ====================
 df_path = get_data_path('crocodile_dataset.csv')
 crocs = pd.read_csv(df_path)
@@ -90,16 +95,76 @@ CONTENT_STYLE = {
 }
 
 # ==================== Prepare Figures ====================
-fig1 = px.scatter(crocs2, x='Length_m', y='Weight_kg', title='Dimensiones de cocodrilos: largo vs Peso')
-fig2 = px.histogram(crocs2, x='Country/Region') # sencillo
-fig3 = px.bar(crocs2, x='Country/Region', y='Length_m')
-fig4 = px.bar(crocs2, x='Habitat Type', y='Length_m',hover_name='Scientific Name', hover_data=['Country/Region'],color='Conservation Status')
-fig5 = px.sunburst(crocs2, path=['Country/Region', 'Conservation Status'], title='Estatus de conservacion por region')
-fig6 = px.histogram(crocs2, x='Habitat Type', title='Distribucion del tipo de habitat')
-fig7 = px.histogram(crocs2, x='Habitat Type', color='Conservation Status',title='Distribución de tipos e habitat por estado de conservación')
-fig8 = px.histogram(crocs2,x='Age Class',color='Age Class',title='Conteo de clase por edad')
-fig9 = px.histogram(crocs2,x='Country/Region',color='Habitat Type',title='Conteo de Hábitats por País')
-fig10 = px.histogram(crocs2,x='Country/Region',color='Conservation Status',title='Conteo de Estatus por País')
+fig1 = px.scatter(
+    crocs2, 
+    x='Length_m', 
+    y='Weight_kg', 
+    title='Dimensiones de cocodrilos: largo vs Peso',
+    color='Length_m',
+    color_continuous_scale=ANALOGO
+)
+fig2 = px.histogram(
+    crocs2, 
+    x='Country/Region',
+    title='Distribución de cocodrilos por país',
+    color_discrete_sequence=[ANALOGO[0]]
+)
+fig3 = px.bar(
+    crocs2, 
+    x='Country/Region', 
+    y='Length_m',
+    title='Largo de cocodrilos por país',
+    color='Length_m',
+    color_continuous_scale=ANALOGO
+)
+fig4 = px.bar(
+    crocs2, 
+    x='Habitat Type', 
+    y='Length_m',
+    hover_name='Scientific Name', 
+    hover_data=['Country/Region'],
+    color='Conservation Status',
+    title='Largo de cocodrilos por tipo de habitat y estado de conservación',
+    color_discrete_sequence=COMPLEMENTARIOS
+)
+fig5 = px.sunburst(
+    crocs2, 
+    path=['Country/Region', 'Conservation Status'], 
+    title='Estatus de conservacion por region',
+    color_discrete_sequence=ANALOGO,    
+)
+fig6 = px.histogram(
+    crocs2, 
+    x='Habitat Type', 
+    title='Distribucion del tipo de habitat',
+    color_discrete_sequence=[COMPLEMENTARIOS[0]]
+)
+fig7 = px.histogram(
+    crocs2, 
+    x='Habitat Type', 
+    color='Conservation Status',
+    title='Distribución de tipos e habitat por estado de conservación',
+    color_discrete_sequence=ANALOGO
+)
+fig8 = px.histogram(
+    crocs2,
+    x='Age Class',
+    title='Conteo de clase por edad',
+    color='Age Class',
+    color_discrete_sequence=TRIADICO
+)
+fig9 = px.histogram(
+    crocs2,x='Country/Region',
+    color='Habitat Type',
+    title='Conteo de Hábitats por País',
+    color_discrete_sequence=ANALOGO
+)
+fig10 = px.histogram(
+    crocs2,x='Country/Region',
+    color='Conservation Status',
+    title='Conteo de Estatus por País',
+    color_discrete_sequence=ANALOGO
+)
 
 # ==================== Layout Components ====================
 
@@ -113,7 +178,7 @@ sidebar = html.Div(
             [
                 dbc.NavLink(
                     [
-                        html.I(className='bi bi-house-door-fill', style={'margin-right': '0.5rem'}),
+                        html.I(className='bi bi-pie-chart-fill', style={'margin-right': '0.5rem'}),
                         html.Span('Dashboard')
                     ],
                     href='/dashboard',
@@ -122,8 +187,8 @@ sidebar = html.Div(
                 ),
                 dbc.NavLink(
                     [
-                        html.I(className='bi bi-truck', style={'margin-right': '0.5rem'}),
-                        html.Span('Rutas')
+                        html.I(className='bi bi-bar-chart-line-fill', style={'margin-right': '0.5rem'}),
+                        html.Span('Otra pagina')
                     ],
                     href='/otra-pagina',
                     className='nav-link',
