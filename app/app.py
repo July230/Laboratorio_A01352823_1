@@ -263,7 +263,8 @@ dashboard_content = dbc.Container([
         dbc.Col([
             dbc.Card([
                 dbc.CardBody([
-                    dcc.Graph(id='plot-1', className='dashboard-graph', figure=fig1)
+                    dcc.Graph(id='plot-1', className='dashboard-graph', figure=fig1),
+                    dbc.CardFooter('Figura 1: Gráfica de dispersión mostrando la relación entre el largo y el peso de los cocodrilos.', style={'font-family': 'MuseoModerno', 'font-size': '12px'})
                 ])
             ], className='shadow-sm mb-3', style={'minHeight': '300px'})
         ], width='auto'),
