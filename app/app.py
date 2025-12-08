@@ -91,8 +91,16 @@ CONTENT_STYLE = {
 
 # ==================== Prepare Figures ====================
 fig1 = px.scatter(crocs2, x='Length_m', y='Weight_kg', title='Dimensiones de cocodrilos: largo vs Peso')
+fig2 = px.histogram(crocs2, x='Country/Region') # sencillo
+fig3 = px.bar(crocs2, x='Country/Region', y='Length_m')
+fig4 = px.bar(crocs2, x='Habitat Type', y='Length_m',hover_name='Scientific Name', hover_data=['Country/Region'],color='Conservation Status')
 fig5 = px.sunburst(crocs2, path=['Country/Region', 'Conservation Status'], title='Estatus de conservacion por region')
 fig6 = px.histogram(crocs2, x='Habitat Type', title='Distribucion del tipo de habitat')
+
+
+
+
+
 # ==================== Layout Components ====================
 
 # ======================== Sidebar ==========================
@@ -178,7 +186,7 @@ dashboard_content = dbc.Container([
         dbc.Col([
             dbc.Card([
                 dbc.CardBody([
-                    dcc.Graph(id='plot-2', className='dashboard-graph')
+                    dcc.Graph(id='plot-2', className='dashboard-graph',figure=fig2)
                 ])
             ], className='shadow-sm mb-3', style={'minHeight': '300px'})
         ], width='auto'),
@@ -189,7 +197,7 @@ dashboard_content = dbc.Container([
         dbc.Col([
             dbc.Card([
                 dbc.CardBody([
-                    dcc.Graph(id='plot-3', className='dashboard-graph')
+                    dcc.Graph(id='plot-3', className='dashboard-graph',figure=fig3)
                 ])
             ], className='shadow-sm mb-3', style={'minHeight': '300px'})
         ], width='auto'),
@@ -198,7 +206,7 @@ dashboard_content = dbc.Container([
         dbc.Col([
             dbc.Card([
                 dbc.CardBody([
-                    dcc.Graph(id='plot-4', className='dashboard-graph')
+                    dcc.Graph(id='plot-4', className='dashboard-graph',figure=fig4)
                 ])
             ], className='shadow-sm mb-3', style={'minHeight': '300px'})
         ], width='auto'),
