@@ -129,7 +129,7 @@ fig4 = px.bar(
 )
 fig5 = px.sunburst(
     crocs2, 
-    path=['Country/Region', 'Conservation Status'], 
+    path=['Conservation Status','Country/Region'], 
     title='Estatus de conservacion por region',
     color_discrete_sequence=ANALOGO,    
 )
@@ -244,6 +244,7 @@ dashboard_content = dbc.Container([
             style={'font-family': 'MuseoModerno'}),
         html.Hr(),
         html.Img(src='/assets/img/crocodiles.png', alt='Cocodrilos', style={'width': '300px', 'display': 'block', 'margin-left': 'auto', 'margin-right': 'auto'}),
+        html.P('Fuente: https://www.kaggle.com/datasets/zadafiyabhrami/global-crocodile-species-dataset', style={'font-family': 'MuseoModerno', 'font-size': '10px', 'text-align': 'center'}),
         html.P(
             'Equipo Ctrl+4', 
             style={'font-family': 'MuseoModerno'}),
@@ -262,7 +263,8 @@ dashboard_content = dbc.Container([
         dbc.Col([
             dbc.Card([
                 dbc.CardBody([
-                    dcc.Graph(id='plot-1', className='dashboard-graph', figure=fig1)
+                    dcc.Graph(id='plot-1', className='dashboard-graph', figure=fig1),
+                    dbc.CardFooter('Figura 1: Gráfica de dispersión mostrando la relación entre el largo y el peso de los cocodrilos.', style={'font-family': 'MuseoModerno', 'font-size': '12px'})
                 ])
             ], className='shadow-sm mb-3', style={'minHeight': '300px'})
         ], width='auto'),
@@ -271,7 +273,8 @@ dashboard_content = dbc.Container([
         dbc.Col([
             dbc.Card([
                 dbc.CardBody([
-                    dcc.Graph(id='plot-2', className='dashboard-graph',figure=fig2)
+                    dcc.Graph(id='plot-2', className='dashboard-graph',figure=fig2),
+                    dbc.CardFooter('Figura 2: Gráfica de barras con un conteo de registros de cocodrilos en cada país/región.', style={'font-family': 'MuseoModerno', 'font-size': '12px'})
                 ])
             ], className='shadow-sm mb-3', style={'minHeight': '300px'})
         ], width='auto'),
@@ -282,7 +285,9 @@ dashboard_content = dbc.Container([
         dbc.Col([
             dbc.Card([
                 dbc.CardBody([
-                    dcc.Graph(id='plot-3', className='dashboard-graph',figure=fig3)
+                    dcc.Graph(id='plot-3', className='dashboard-graph',figure=fig3),
+                    dbc.CardFooter('Figura 3: Gráfica de barras que muestra un total del largo en metros de todos los cocodrilos registrados en cada región.', style={'font-family': 'MuseoModerno', 'font-size': '12px'})
+
                 ])
             ], className='shadow-sm mb-3', style={'minHeight': '300px'})
         ], width='auto'),
@@ -291,7 +296,8 @@ dashboard_content = dbc.Container([
         dbc.Col([
             dbc.Card([
                 dbc.CardBody([
-                    dcc.Graph(id='plot-4', className='dashboard-graph',figure=fig4)
+                    dcc.Graph(id='plot-4', className='dashboard-graph',figure=fig4),
+                    dbc.CardFooter('Figura 4: Gráfica de barras mostrando en qué estado de conservación se encuentran los cocodrilos en diferentes habitats, al sobreponer el cursor podemos visualizar el nombre scientífico de cada registro.', style={'font-family': 'MuseoModerno', 'font-size': '12px'})
                 ])
             ], className='shadow-sm mb-3', style={'minHeight': '300px'})
         ], width='auto'),
@@ -300,7 +306,8 @@ dashboard_content = dbc.Container([
         dbc.Col([
             dbc.Card([
                 dbc.CardBody([
-                    dcc.Graph(id='plot-5', className='dashboard-graph',figure=fig5)
+                    dcc.Graph(id='plot-5', className='dashboard-graph',figure=fig5),
+                    dbc.CardFooter('Figura 5: Gráfica de sol o pay que muestra los países con su respectivo estado de conservación principal.', style={'font-family': 'MuseoModerno', 'font-size': '12px'})
                 ])
             ], className='shadow-sm mb-3', style={'minHeight': '300px'})
         ], width='auto'),
@@ -309,7 +316,8 @@ dashboard_content = dbc.Container([
         dbc.Col([
             dbc.Card([
                 dbc.CardBody([
-                    dcc.Graph(id='plot-6', className='dashboard-graph',figure=fig6)
+                    dcc.Graph(id='plot-6', className='dashboard-graph',figure=fig6),
+                    dbc.CardFooter('Figura 6: Gráfica de barras que muestra conteo de registros que pertenece a cada tipo de habitat.', style={'font-family': 'MuseoModerno', 'font-size': '12px'})
                 ])
             ], className='shadow-sm mb-3', style={'minHeight': '300px'})
         ], width='auto'),
@@ -318,7 +326,8 @@ dashboard_content = dbc.Container([
         dbc.Col([
             dbc.Card([
                 dbc.CardBody([
-                    dcc.Graph(id='plot-7', className='dashboard-graph', figure=fig7)
+                    dcc.Graph(id='plot-7', className='dashboard-graph', figure=fig7),
+                    dbc.CardFooter('Figura 7: Gráfica de barras que muestra por colores los estados de conservación de sus registros, separados por tipo de habitat.', style={'font-family': 'MuseoModerno', 'font-size': '12px'})
                 ])
             ], className='shadow-sm mb-3', style={'minHeight': '300px'})
         ], width='auto'),
@@ -327,7 +336,8 @@ dashboard_content = dbc.Container([
         dbc.Col([
             dbc.Card([
                 dbc.CardBody([
-                    dcc.Graph(id='plot-8', className='dashboard-graph', figure=fig8)
+                    dcc.Graph(id='plot-8', className='dashboard-graph', figure=fig8),
+                    dbc.CardFooter('Figura 8: Gráfica de barras que muestra por colores un conteo total de las clases de edad de los registros.', style={'font-family': 'MuseoModerno', 'font-size': '12px'})
                 ])
             ], className='shadow-sm mb-3', style={'minHeight': '300px'})
         ], width='auto'),
@@ -336,7 +346,8 @@ dashboard_content = dbc.Container([
         dbc.Col([
             dbc.Card([
                 dbc.CardBody([
-                    dcc.Graph(id='plot-9', className='dashboard-graph', figure=fig9)
+                    dcc.Graph(id='plot-9', className='dashboard-graph', figure=fig9),
+                    dbc.CardFooter('Figura 9: Gráfica de barras que muestra agrupado por colores los habitats de cada país.', style={'font-family': 'MuseoModerno', 'font-size': '12px'})
                 ])
             ], className='shadow-sm mb-3', style={'minHeight': '300px'})
         ], width='auto'),
@@ -345,7 +356,8 @@ dashboard_content = dbc.Container([
         dbc.Col([
             dbc.Card([
                 dbc.CardBody([
-                    dcc.Graph(id='plot-10', className='dashboard-graph', figure=fig10)
+                    dcc.Graph(id='plot-10', className='dashboard-graph', figure=fig10),
+                    dbc.CardFooter('Figura 10: Gráfica de barras que muestra los estados de conservación de los registros separados por color, a través del conteo total de cada país.', style={'font-family': 'MuseoModerno', 'font-size': '12px'})
                 ])
             ], className='shadow-sm mb-3', style={'minHeight': '300px'})
         ], width='auto'),
