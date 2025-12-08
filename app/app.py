@@ -210,7 +210,7 @@ tooltip = html.Div(
             style={'margin-right': '0.5rem'},
         ),
         dbc.Tooltip(
-            'Sube un archivo haciendo click o arrastrando aquí.',
+            'Gráficas generadas con Plotly Express usando datos de cocodrilos.',
             target='tooltip-target',
             style={'font-family': 'MuseoModerno'},
         ),
@@ -226,7 +226,8 @@ dashboard_content = dbc.Container([
                 'Dashboard', 
                 style={'textAlign': 'left', 'font-family': 'MuseoModerno'}
             ),
-            tooltip
+            tooltip,
+            html.Hr(),
         ],
         style={
             'display': 'flex',
@@ -236,6 +237,25 @@ dashboard_content = dbc.Container([
             'width': '100%'
         }
         ),
+    ]),
+    dbc.Row([
+        html.P(
+            'Análisis visual de datos de cocodrilos utilizando diversas gráficas interactivas.',
+            style={'font-family': 'MuseoModerno'}),
+        html.Hr(),
+        html.Img(src='/assets/img/crocodiles.png', alt='Cocodrilos', style={'width': '300px', 'display': 'block', 'margin-left': 'auto', 'margin-right': 'auto'}),
+        html.P(
+            'Equipo Ctrl+4', 
+            style={'font-family': 'MuseoModerno'}),
+        html.P(
+            'Integrantes:', 
+            style={'font-family': 'MuseoModerno'}),
+        html.Ul([
+            html.Li('Ian Julián Estrada Castro - A01352823', style={'font-family': 'MuseoModerno'}),
+            html.Li('Aranza Jimena Martínez Jiménez - A01769455', style={'font-family': 'MuseoModerno'}),
+            html.Li('Jerónimo López Ibarrarán - A01709519', style={'font-family': 'MuseoModerno'}),
+            html.Li('Alejandro Preisser Roca - A01706272', style={'font-family': 'MuseoModerno'}),
+        ], style={'font-family': 'MuseoModerno'}),
     ]),
 
     dbc.Row([
