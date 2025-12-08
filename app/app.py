@@ -91,7 +91,10 @@ CONTENT_STYLE = {
 
 # ==================== Prepare Figures ====================
 fig1 = px.scatter(crocs2, x='Length_m', y='Weight_kg', title='Dimensiones de cocodrilos: largo vs Peso')
-
+fig7 = px.histogram(crocs2, x='Habitat Type', color='Conservation Status',title='Distribución de tipos e habitat por estado de conservación')
+fig8 = px.histogram(crocs2,x='Age Class',color='Age Class',title='Conteo de clase por edad')
+fig9 = px.histogram(crocs2,x='Country/Region',color='Habitat Type',title='Conteo de Hábitats por País')
+fig10 = px.histogram(crocs2,x='Country/Region',color='Conservation Status',title='Conteo de Estatus por País')
 # ==================== Layout Components ====================
 
 # ======================== Sidebar ==========================
@@ -198,6 +201,42 @@ dashboard_content = dbc.Container([
             dbc.Card([
                 dbc.CardBody([
                     dcc.Graph(id='plot-4', className='dashboard-graph')
+                ])
+            ], className='shadow-sm mb-3', style={'minHeight': '300px'})
+        ], width='auto'),
+    ]),
+    dbc.Row([
+        dbc.Col([
+            dbc.Card([
+                dbc.CardBody([
+                    dcc.Graph(id='plot-7', className='dashboard-graph', figure=fig7)
+                ])
+            ], className='shadow-sm mb-3', style={'minHeight': '300px'})
+        ], width='auto'),
+    ]),
+    dbc.Row([
+        dbc.Col([
+            dbc.Card([
+                dbc.CardBody([
+                    dcc.Graph(id='plot-8', className='dashboard-graph', figure=fig8)
+                ])
+            ], className='shadow-sm mb-3', style={'minHeight': '300px'})
+        ], width='auto'),
+    ]),
+    dbc.Row([
+        dbc.Col([
+            dbc.Card([
+                dbc.CardBody([
+                    dcc.Graph(id='plot-9', className='dashboard-graph', figure=fig9)
+                ])
+            ], className='shadow-sm mb-3', style={'minHeight': '300px'})
+        ], width='auto'),
+    ]),
+    dbc.Row([
+        dbc.Col([
+            dbc.Card([
+                dbc.CardBody([
+                    dcc.Graph(id='plot-10', className='dashboard-graph', figure=fig10)
                 ])
             ], className='shadow-sm mb-3', style={'minHeight': '300px'})
         ], width='auto'),
