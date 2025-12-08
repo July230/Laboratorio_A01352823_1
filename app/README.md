@@ -38,4 +38,7 @@ py app.py
 ```
 Este comando iniciará la aplicación de Dash en el puerto ```http://localhost:8050/```
 
+## Video del dashboard
+[Enlace a video](https://drive.google.com/file/d/1PWNjoEPxZAVIA1zP59LbmR3f433ML4eg/view?usp=sharing)
+
 ---
