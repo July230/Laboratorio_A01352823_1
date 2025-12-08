@@ -91,7 +91,8 @@ CONTENT_STYLE = {
 
 # ==================== Prepare Figures ====================
 fig1 = px.scatter(crocs2, x='Length_m', y='Weight_kg', title='Dimensiones de cocodrilos: largo vs Peso')
-
+fig5 = px.sunburst(crocs2, path=['Country/Region', 'Conservation Status'], title='Estatus de conservacion por region')
+fig6 = px.histogram(crocs2, x='Habitat Type', title='Distribucion del tipo de habitat')
 # ==================== Layout Components ====================
 
 # ======================== Sidebar ==========================
@@ -201,7 +202,25 @@ dashboard_content = dbc.Container([
                 ])
             ], className='shadow-sm mb-3', style={'minHeight': '300px'})
         ], width='auto'),
-    ])
+    ]),
+    dbc.Row([
+        dbc.Col([
+            dbc.Card([
+                dbc.CardBody([
+                    dcc.Graph(id='plot-5', className='dashboard-graph',figure=fig5)
+                ])
+            ], className='shadow-sm mb-3', style={'minHeight': '300px'})
+        ], width='auto'),
+    ]),
+    dbc.Row([
+        dbc.Col([
+            dbc.Card([
+                dbc.CardBody([
+                    dcc.Graph(id='plot-6', className='dashboard-graph',figure=fig6)
+                ])
+            ], className='shadow-sm mb-3', style={'minHeight': '300px'})
+        ], width='auto'),
+    ]),
 ])
 
 # Other Page
